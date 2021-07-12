@@ -1,0 +1,10 @@
+[submodule "external/glm"]
+	path = external/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "glm"]
+	branch = 0.9.9.8
+[submodule "external/glfw"]
+	path = external/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "glfw"]
+	branch = 3.3.4
