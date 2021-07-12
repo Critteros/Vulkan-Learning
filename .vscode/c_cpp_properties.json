@@ -5,7 +5,6 @@
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/**",
-                "~/.conan/data/**",
                 "C:\\dev-Tools\\Vulkan\\**"
             ],
             "defines": [
