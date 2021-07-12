@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "~/.conan/data/**"
+                "${workspaceFolder}/**",
+                "~/.conan/data/**",
+                "C:\\dev-Tools\\Vulkan\\**"
             ],
             "defines": [
                 "_DEBUG",

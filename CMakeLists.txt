@@ -15,22 +15,26 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_cmake_run(
     REQUIRES
     
-    fmt/6.2.0
+    fmt/8.0.1
+    glfw/3.3.4
+    glm/0.9.9.8
 
     BASIC_SETUP CMAKE_TARGETS
 )
 
 
-#Project initial-setup
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(Vulkan REQUIRED)
-
 
 
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE CONAN_PKG::fmt)
+find_package(Vulkan REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    CONAN_PKG::fmt
+    CONAN_PKG::glfw
+    CONAN_PKG::glm
+    Vulkan::Vulkan
+    )
