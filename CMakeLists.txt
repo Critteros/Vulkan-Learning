@@ -6,7 +6,9 @@ project("Vulkan-Learning" LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(deps-source-dir "${PROJECT_SOURCE_DIR}/external")
+
+#Folder in which resides external libraries
+set(vendor_DIR "${PROJECT_SOURCE_DIR}/vendor")
 
 
 # Finding all source files for this project
@@ -24,8 +26,12 @@ set(project-deps-list)
 find_package(Vulkan REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
 
+# GLM
+set(glm_DIR "${vendor_DIR}/glm/cmake/glm")
+find_package(glm REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
+
 # GLFW 
-#########################################################################
 set(GLFW_USE_HYBRID_HPG OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -33,16 +39,10 @@ set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
 set(GLFW_UNINSTALL      OFF CACHE BOOL "" FORCE)
 set(GLFW_VULKAN_STATIC  OFF CACHE BOOL "" FORCE)
-
-add_subdirectory("${PROJECT_SOURCE_DIR}/external/GLFW")
+add_subdirectory("${vendor_DIR}/GLFW")
 list(APPEND project-deps-list glfw)
-#########################################################################
 
-# GLM
-set(glm_DIR "${deps-source-dir}/glm")
-find_package(glm REQUIRED)
-#add_subdirectory("${PROJECT_SOURCE_DIR}/external/glm" EXCLUDE_FROM_ALL)
-#list(APPEND project-deps-list glm)
+#########################################################################
 
 
 # Add properties to dependencies
@@ -67,7 +67,7 @@ foreach(target ${project-deps-list})
     target_link_libraries(project-deps INTERFACE ${target})
 endforeach()
 target_link_libraries(${PROJECT_NAME} PRIVATE project-deps)
-#target_link_libraries(${PROJECT_NAME} PRIVATE Winmm.lib)
+
 
 
 #Advanced setup
