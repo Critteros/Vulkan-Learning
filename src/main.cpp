@@ -7,6 +7,7 @@
 #include <glm/mat4x4.hpp>
 
 #include <vulkan/vulkan.h>
+#include <fmt/core.h>
 
 #include <iostream>
 
@@ -20,6 +21,7 @@ int main()
     uint32_t extensionCount = 0;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
 
+    fmt::print("Hello, world!\n");
     std::cout << extensionCount << " extensions supported\n";
 
     glm::mat4 matrix;

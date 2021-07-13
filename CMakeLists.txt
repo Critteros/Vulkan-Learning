@@ -34,6 +34,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 find_package(glfw3 REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 
+# fmt 
+find_package(fmt REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+
 #########################################################################
 
 
