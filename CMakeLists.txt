@@ -26,7 +26,6 @@ find_package(Vulkan REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE Vulkan::Vulkan)
 
 # GLM
-set(glm_DIR "${vendor_DIR}/glm/cmake/glm")
 find_package(glm REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 
