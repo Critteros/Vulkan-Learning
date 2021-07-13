@@ -4,9 +4,12 @@
 
 #include "application.hpp"
 
+#include <fstream>
+
 int main()
 {
-    engine::Application app{};
+
+        engine::Application app{};
 
     try
     {

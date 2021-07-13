@@ -18,6 +18,8 @@ namespace engine
 
         inline bool shouldClose() { return glfwWindowShouldClose(window); }
 
+        void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
+
     private:
         GLFWwindow *window;
         int32_t width;

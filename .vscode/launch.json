@@ -13,10 +13,7 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [
-                {
-                    "name": "PATH",
-                    "value": "$PATH:${command:cmake.launchTargetDirectory}"
-                }
+                
             ],
             "console": "integratedTerminal"
             

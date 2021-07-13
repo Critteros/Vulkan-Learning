@@ -1,6 +1,7 @@
 #pragma once
 
 #include "window.hpp"
+#include "pipeline.hpp"
 
 namespace engine
 {
@@ -14,5 +15,6 @@ namespace engine
 
     private:
         EngineWindow window{WIDTH, HEIGHT, "Vulkan Window"};
+        EnginePipeline pipeline{"shaders/simple.vert.spv", "shaders/simple.frag.spv"};
     };
 }
