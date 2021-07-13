@@ -38,6 +38,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 find_package(fmt REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
+# spdlog
+find_package(spdlog REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog)
+
 #########################################################################
 
 
