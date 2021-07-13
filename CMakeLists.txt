@@ -12,7 +12,7 @@ set(vendor_DIR "${PROJECT_SOURCE_DIR}/vendor")
 
 
 # Finding all source files for this project
-file(GLOB sources "src/*.cpp" "src/*.h" "src/*.c")
+file(GLOB sources "src/*.cpp" "src/*.h" "src/*.c" "src/*.hpp")
 add_executable(${PROJECT_NAME} ${sources})
 
 
