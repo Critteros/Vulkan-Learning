@@ -32,15 +32,20 @@ find_package(glm REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 
 # GLFW 
-set(GLFW_USE_HYBRID_HPG OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
-set(GLFW_UNINSTALL      OFF CACHE BOOL "" FORCE)
-set(GLFW_VULKAN_STATIC  OFF CACHE BOOL "" FORCE)
-add_subdirectory("${vendor_DIR}/GLFW")
-list(APPEND project-deps-list glfw)
+# set(GLFW_USE_HYBRID_HPG OFF CACHE BOOL "" FORCE)
+# set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
+# set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+# set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
+# set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
+# set(GLFW_UNINSTALL      OFF CACHE BOOL "" FORCE)
+# set(GLFW_VULKAN_STATIC  OFF CACHE BOOL "" FORCE)
+# add_subdirectory("${vendor_DIR}/GLFW")
+# list(APPEND project-deps-list glfw)
+
+# set(CMAKE_PREFIX_PATH "C:\\libs\\installs")
+message("$ENV{CMAKE_PREFIX_PATH}")
+find_package(glfw3 REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 
 #########################################################################
 
@@ -81,5 +86,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 #Preprocessor Defines
 add_compile_definitions(GLFW_INCLUDE_NONE)
+
+
+
 
 
