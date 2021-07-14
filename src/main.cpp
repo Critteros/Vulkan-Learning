@@ -11,9 +11,7 @@ int main()
 
     engine::Application app{};
 
-    std::cout << "starting" << std::endl;
-
-    try
+       try
     {
         app.run();
     }
