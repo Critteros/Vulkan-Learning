@@ -9,7 +9,9 @@
 int main()
 {
 
-        engine::Application app{};
+    engine::Application app{};
+
+    std::cout << "starting" << std::endl;
 
     try
     {
