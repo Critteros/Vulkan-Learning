@@ -16,7 +16,11 @@ namespace engine
 
     private:
         EngineWindow window{WIDTH, HEIGHT, "Vulkan Window"};
-        EnginePipeline pipeline{"shaders/simple.vert.spv", "shaders/simple.frag.spv"};
         EngineDevice device{window};
+        EnginePipeline pipeline{
+            device,
+            "shaders/simple.vert.spv",
+            "shaders/simple.frag.spv",
+            EnginePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
     };
 }

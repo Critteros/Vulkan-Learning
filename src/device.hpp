@@ -43,6 +43,8 @@ namespace engine
         EngineDevice(const EngineDevice &) = delete;
         EngineDevice &operator=(const EngineDevice &) = delete;
 
+        inline VkDevice getDevice() { return logicalDevice; }
+
     private:
         //Primary setup functions
         void createInstance();
