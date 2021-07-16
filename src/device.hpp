@@ -49,6 +49,7 @@ namespace engine
         void setupDebugMessenger();
         void pickPhysicalDevice();
         void createSurface();
+        void createSwapChain();
 
         //Helper functions
         void checkExtensions();
@@ -58,6 +59,8 @@ namespace engine
         bool isDeviceSuitable(VkPhysicalDevice device);
         SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
         bool checkValidationLayerSupport();
+        VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR> &availableFormats);
+        VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
         QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
         std::vector<const char *> getRequiredExtensions();
         void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
@@ -68,6 +71,10 @@ namespace engine
         VkQueue graphicsQueue;
         VkSurfaceKHR surface;
         VkQueue presentQueue;
+        VkSwapchainKHR swapChain;
+        std::vector<VkImage> swapChainImages;
+        VkFormat swapChainImageFormat;
+        VkExtent2D swapChainExtent;
         VkDebugUtilsMessengerEXT debugMessenger;
         VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         VkDevice logicalDevice;
