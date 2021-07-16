@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include <map>
+#include <optional>
 
 #include <spdlog/spdlog.h>
 
@@ -12,6 +13,16 @@
 
 namespace engine
 {
+
+    struct QueueFamilyIndices
+    {
+        std::optional<uint32_t> graphicsFamily;
+
+        inline bool isComplete()
+        {
+            return graphicsFamily.has_value();
+        }
+    };
 
     class EngineDevice
     {
@@ -24,19 +35,28 @@ namespace engine
         EngineDevice &operator=(const EngineDevice &) = delete;
 
     private:
+        //Primary setup functions
         void createInstance();
-
-        void checkExtensions();
         void setupDebugMessenger();
         void pickPhysicalDevice();
-        int rateDeviceSuitability(VkPhysicalDevice device);
-        bool checkValidationLayerSupport();
-        std::vector<const char *> getRequiredExtensions();
 
+        //Helper functions
+        void checkExtensions();
+        void createLogicalDevice();
+        int rateDeviceSuitability(VkPhysicalDevice device);
+        bool isDeviceSuitable(VkPhysicalDevice device);
+        bool checkValidationLayerSupport();
+        QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+        std::vector<const char *> getRequiredExtensions();
+        void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
+
+        //Private variables
         EngineWindow &window;
         VkInstance instance;
+        VkQueue graphicsQueue;
         VkDebugUtilsMessengerEXT debugMessenger;
         VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+        VkDevice logicalDevice;
         const bool enableValidationLayers = true;
         const std::vector<const char *> validationLayers{
             "VK_LAYER_KHRONOS_validation"};
@@ -47,8 +67,6 @@ namespace engine
             VkDebugUtilsMessageTypeFlagsEXT messageType,
             const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
             void *pUserData);
-
-        void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
 
         //Proxy functions
         VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
