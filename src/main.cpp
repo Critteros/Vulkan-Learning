@@ -1,10 +1,11 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
+
+#include <spdlog/spdlog.h>
 
 #include "application.hpp"
-
-#include <fstream>
 
 int main()
 {
