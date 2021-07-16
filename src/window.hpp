@@ -13,6 +13,7 @@ namespace engine
         EngineWindow(int32_t width, int32_t height, const std::string &window_name);
         ~EngineWindow();
 
+        //Do not allow copying object of this class
         EngineWindow(const EngineWindow &) = delete;
         EngineWindow &operator=(const EngineWindow &) = delete;
 
