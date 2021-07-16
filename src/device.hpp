@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "window.hpp"
 
 namespace engine
@@ -15,9 +17,10 @@ namespace engine
         EngineDevice &operator=(const EngineDevice &) = delete;
 
     private:
-        EngineWindow &window;
         void createInstance();
+        std::vector<const char *> getRequiredExtensions();
 
+        EngineWindow &window;
         VkInstance instance;
     };
 }
