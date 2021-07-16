@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <unordered_set>
+#include <iostream>
 
 #include "window.hpp"
 
@@ -18,6 +20,7 @@ namespace engine
 
     private:
         void createInstance();
+        void checkExtensions();
         std::vector<const char *> getRequiredExtensions();
 
         EngineWindow &window;

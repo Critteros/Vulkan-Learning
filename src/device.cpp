@@ -1,7 +1,5 @@
-#include <iostream>
-#include <stdexcept>
-
 #include "device.hpp"
+
 namespace engine
 {
     EngineDevice::EngineDevice(EngineWindow &window) : window{window}
@@ -25,11 +23,6 @@ namespace engine
 
         auto requiredExtensions = getRequiredExtensions();
 
-        std::cout << "Required Extensions:" << std::endl;
-
-        for (auto el : requiredExtensions)
-            std::cout << el << std::endl;
-
         uint32_t extensionCount = static_cast<uint32_t>(requiredExtensions.size());
 
         createInfo.enabledExtensionCount = extensionCount;
@@ -39,7 +32,39 @@ namespace engine
         VkResult instanceCreateInfo = vkCreateInstance(&createInfo, nullptr, &instance);
 
         if (instanceCreateInfo != VK_SUCCESS)
-            throw std::runtime_error("failure in creating vulkan instance");
+            throw std::runtime_error{"failure in creating vulkan instance"};
+
+        checkExtensions();
+    }
+
+    void EngineDevice::checkExtensions()
+    {
+        uint32_t extensionCount;
+        vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+        std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+        vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, availableExtensions.data());
+
+        std::unordered_set<const char *> supportedExtensions;
+        const char *extensionName;
+
+        std::cout << "\nSupported Extensions:" << std::endl;
+
+        for (auto el : availableExtensions)
+        {
+            extensionName = el.extensionName;
+            supportedExtensions.emplace(extensionName);
+            std::cout << extensionName << std::endl;
+        }
+
+        auto requiredExtensions = getRequiredExtensions();
+        std::cout << "\nRequired Extensions" << std::endl;
+        for (auto el : requiredExtensions)
+        {
+            if (supportedExtensions.find(el) == supportedExtensions.end())
+                std::runtime_error{"Required extension could not be found"};
+
+            std::cout << el << std::endl;
+        }
     }
 
     std::vector<const char *> EngineDevice::getRequiredExtensions()
