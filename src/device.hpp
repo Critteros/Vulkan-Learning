@@ -26,6 +26,13 @@ namespace engine
         }
     };
 
+    struct SwapChainSupportDetails
+    {
+        VkSurfaceCapabilitiesKHR capabilities;
+        std::vector<VkSurfaceFormatKHR> formats;
+        std::vector<VkPresentModeKHR> presentModes;
+    };
+
     class EngineDevice
     {
     public:
@@ -46,8 +53,10 @@ namespace engine
         //Helper functions
         void checkExtensions();
         void createLogicalDevice();
+        bool checkDeviceExtensionSupport(VkPhysicalDevice device);
         int rateDeviceSuitability(VkPhysicalDevice device);
         bool isDeviceSuitable(VkPhysicalDevice device);
+        SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
         bool checkValidationLayerSupport();
         QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
         std::vector<const char *> getRequiredExtensions();
@@ -65,6 +74,9 @@ namespace engine
         const bool enableValidationLayers = true;
         const std::vector<const char *> validationLayers{
             "VK_LAYER_KHRONOS_validation"};
+
+        const std::vector<const char *> deviceExtensions = {
+            VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 
         //Custom Debug callback
         static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
