@@ -7,6 +7,11 @@ namespace engine
         createInstance();
     }
 
+    EngineDevice::~EngineDevice()
+    {
+        vkDestroyInstance(instance, nullptr);
+    }
+
     void EngineDevice::createInstance()
     {
         VkApplicationInfo appInfo{};

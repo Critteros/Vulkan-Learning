@@ -13,6 +13,7 @@ namespace engine
     {
     public:
         EngineDevice(EngineWindow &window);
+        ~EngineDevice();
 
         //Do not allow copying
         EngineDevice(const EngineDevice &) = delete;
