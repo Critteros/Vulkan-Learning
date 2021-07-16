@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <cassert>
 
 #include "device.hpp"
 
@@ -33,9 +34,7 @@ namespace engine
             const std::string &fragFilePath,
             const PipelineConfigInfo &configInfo);
 
-        ~EnginePipeline()
-        {
-        }
+        ~EnginePipeline();
 
         EnginePipeline(const EnginePipeline &) = delete;
         EnginePipeline &operator=(const EnginePipeline &) = delete;
@@ -45,9 +44,9 @@ namespace engine
     private:
         std::vector<char> readFile(const std::string &filePath);
 
-        void creatGraphicsPipeline(const std::string &vertFilePath,
-                                   const std::string &fragFilePath,
-                                   const PipelineConfigInfo &configInfo);
+        void createGraphicsPipeline(const std::string &vertFilePath,
+                                    const std::string &fragFilePath,
+                                    const PipelineConfigInfo &configInfo);
 
         void createShaderModule(const std::vector<char> &code, VkShaderModule *shaderModule);
 
