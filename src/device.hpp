@@ -44,6 +44,8 @@ namespace engine
             const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
             void *pUserData);
 
+        void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
+
         //Proxy functions
         VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
                                               const VkDebugUtilsMessengerCreateInfoEXT *pCreateInfo,

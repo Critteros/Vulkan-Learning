@@ -15,7 +15,7 @@
             "environment": [
                 
             ],
-            "console": "integratedTerminal"
+            "console": "newExternalWindow"
             
         }
     ]
