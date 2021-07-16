@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include <map>
+#include <set>
 #include <optional>
 
 #include <spdlog/spdlog.h>
@@ -17,10 +18,11 @@ namespace engine
     struct QueueFamilyIndices
     {
         std::optional<uint32_t> graphicsFamily;
+        std::optional<uint32_t> presentFamily;
 
         inline bool isComplete()
         {
-            return graphicsFamily.has_value();
+            return graphicsFamily.has_value() && presentFamily.has_value();
         }
     };
 
@@ -39,6 +41,7 @@ namespace engine
         void createInstance();
         void setupDebugMessenger();
         void pickPhysicalDevice();
+        void createSurface();
 
         //Helper functions
         void checkExtensions();
@@ -54,6 +57,8 @@ namespace engine
         EngineWindow &window;
         VkInstance instance;
         VkQueue graphicsQueue;
+        VkSurfaceKHR surface;
+        VkQueue presentQueue;
         VkDebugUtilsMessengerEXT debugMessenger;
         VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         VkDevice logicalDevice;
