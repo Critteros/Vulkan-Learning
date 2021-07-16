@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include <iostream>
 #include <cstring>
+#include <map>
 
 #include <spdlog/spdlog.h>
 
@@ -27,12 +28,15 @@ namespace engine
 
         void checkExtensions();
         void setupDebugMessenger();
+        void pickPhysicalDevice();
+        int rateDeviceSuitability(VkPhysicalDevice device);
         bool checkValidationLayerSupport();
         std::vector<const char *> getRequiredExtensions();
 
         EngineWindow &window;
         VkInstance instance;
         VkDebugUtilsMessengerEXT debugMessenger;
+        VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         const bool enableValidationLayers = true;
         const std::vector<const char *> validationLayers{
             "VK_LAYER_KHRONOS_validation"};

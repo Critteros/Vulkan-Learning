@@ -6,6 +6,7 @@ namespace engine
     {
         createInstance();
         setupDebugMessenger();
+        pickPhysicalDevice();
     }
 
     EngineDevice::~EngineDevice()
@@ -116,6 +117,69 @@ namespace engine
         {
             throw std::runtime_error{"failed to set up debug messenger!"};
         }
+    }
+
+    void EngineDevice::pickPhysicalDevice()
+    {
+        uint32_t deviceCount = 0;
+        vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+
+        if (deviceCount == 0)
+            throw std::runtime_error{"No device supporting Vulkan"};
+
+        std::vector<VkPhysicalDevice> devices(deviceCount);
+        vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+
+        std::multimap<int, VkPhysicalDevice> candidates;
+
+        for (const auto &device : devices)
+        {
+            int score = rateDeviceSuitability(device);
+            candidates.insert(std::make_pair(score, device));
+        }
+
+        // Check if the best candidate is suitable at all
+        if (candidates.rbegin()->first > 0)
+        {
+            VkPhysicalDeviceProperties deviceProperties;
+            vkGetPhysicalDeviceProperties(candidates.rbegin()->second, &deviceProperties);
+
+            spdlog::warn("Selecting GPU: {}\n", deviceProperties.deviceName);
+
+            physicalDevice = candidates.rbegin()->second;
+        }
+        else
+        {
+            throw std::runtime_error{"failed to find a suitable GPU!"};
+        }
+    }
+
+    int EngineDevice::rateDeviceSuitability(VkPhysicalDevice device)
+    {
+        VkPhysicalDeviceProperties deviceProperties;
+        vkGetPhysicalDeviceProperties(device, &deviceProperties);
+
+        VkPhysicalDeviceFeatures deviceFeatures;
+        vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+        int score = 0;
+
+        // Discrete GPUs have a significant performance advantage
+        if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+        {
+            score += 1000;
+        }
+
+        // Maximum possible size of textures affects graphics quality
+        score += deviceProperties.limits.maxImageDimension2D;
+
+        // Application can't function without geometry shaders
+        if (!deviceFeatures.geometryShader)
+        {
+            return 0;
+        }
+
+        return score;
     }
 
     bool EngineDevice::checkValidationLayerSupport()

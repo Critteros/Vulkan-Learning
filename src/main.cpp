@@ -10,6 +10,8 @@
 int main()
 {
 
+    std::cout << "-----------------------------------------------------" << std::endl;
+
     engine::Application app{};
 
     try
