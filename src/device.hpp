@@ -47,6 +47,17 @@ namespace engine
         inline VkSurfaceKHR getSurface() { return surface; }
         inline SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
         inline QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }
+        inline VkQueue getGraphicsQueue() { return graphicsQueue; }
+        inline VkQueue getPresentQueue() { return presentQueue; }
+
+        VkFormat findSupportedFormat(
+            const std::vector<VkFormat> &candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+
+        void createImageWithInfo(
+            const VkImageCreateInfo &imageInfo,
+            VkMemoryPropertyFlags properties,
+            VkImage &image,
+            VkDeviceMemory &imageMemory);
 
     private:
         //Primary setup functions
