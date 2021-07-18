@@ -3,6 +3,10 @@
 #include "window.hpp"
 #include "pipeline.hpp"
 #include "device.hpp"
+#include "swapchain.hpp"
+
+#include <memory>
+#include <vector>
 
 namespace engine
 {
@@ -17,10 +21,9 @@ namespace engine
     private:
         EngineWindow window{WIDTH, HEIGHT, "Vulkan Window"};
         EngineDevice device{window};
-        EnginePipeline pipeline{
-            device,
-            "shaders/simple.vert.spv",
-            "shaders/simple.frag.spv",
-            EnginePipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
+        SwapChain swapChain{device, window.getExtend()};
+        std::unique_ptr<EnginePipeline> pipeline;
+        VkPipelineLayout pipelineLayout;
+        std::vector<VkCommandBuffer> commandBuffers;
     };
 }

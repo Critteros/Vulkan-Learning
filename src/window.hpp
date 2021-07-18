@@ -21,9 +21,9 @@ namespace engine
         EngineWindow &operator=(const EngineWindow &) = delete;
 
         inline bool shouldClose() { return glfwWindowShouldClose(window); }
+        inline VkExtent2D getExtend() { return {static_cast<uint32_t>(width), static_cast<uint32_t>(height)}; }
 
         void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
-        VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
 
     private:
         GLFWwindow *window;

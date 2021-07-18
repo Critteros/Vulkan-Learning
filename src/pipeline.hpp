@@ -53,5 +53,6 @@ namespace engine
         VkPipeline graphicsPipeline;
         VkShaderModule vertShaderModule;
         VkShaderModule fragShaderModule;
+        VkPipelineLayout pipelineLayout;
     };
 }

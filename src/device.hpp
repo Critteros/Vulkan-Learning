@@ -44,6 +44,9 @@ namespace engine
         EngineDevice &operator=(const EngineDevice &) = delete;
 
         inline VkDevice getDevice() { return logicalDevice; }
+        inline VkSurfaceKHR getSurface() { return surface; }
+        inline SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
+        inline QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }
 
     private:
         //Primary setup functions
@@ -51,7 +54,7 @@ namespace engine
         void setupDebugMessenger();
         void pickPhysicalDevice();
         void createSurface();
-        void createSwapChain();
+        void createCommandPool();
 
         //Helper functions
         void checkExtensions();
@@ -59,11 +62,10 @@ namespace engine
         bool checkDeviceExtensionSupport(VkPhysicalDevice device);
         int rateDeviceSuitability(VkPhysicalDevice device);
         bool isDeviceSuitable(VkPhysicalDevice device);
-        void createImageViews();
+
         SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
         bool checkValidationLayerSupport();
-        VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR> &availableFormats);
-        VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
+
         QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
         std::vector<const char *> getRequiredExtensions();
         void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
@@ -74,11 +76,7 @@ namespace engine
         VkQueue graphicsQueue;
         VkSurfaceKHR surface;
         VkQueue presentQueue;
-        VkSwapchainKHR swapChain;
-        std::vector<VkImage> swapChainImages;
-        VkFormat swapChainImageFormat;
-        VkExtent2D swapChainExtent;
-        std::vector<VkImageView> swapChainImageViews;
+        VkCommandPool commandPool;
         VkDebugUtilsMessengerEXT debugMessenger;
         VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         VkDevice logicalDevice;
