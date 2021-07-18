@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <vector>
+#include <stdexcept>
 
 namespace engine
 {
@@ -16,9 +17,21 @@ namespace engine
         static constexpr int32_t WIDTH = 800;
         static constexpr int32_t HEIGHT = 600;
 
+        Application();
+        ~Application();
+
+        //Delete copy constructors
+        Application(const Application &) = delete;
+        Application &operator=(const Application &) = delete;
+
         void run();
 
     private:
+        void createPipelineLayout();
+        void createPipeline();
+        void createCommandBuffers();
+        void drawFrame();
+
         EngineWindow window{WIDTH, HEIGHT, "Vulkan Window"};
         EngineDevice device{window};
         SwapChain swapChain{device, window.getExtend()};
