@@ -109,6 +109,11 @@ namespace engine
         return configInfo;
     }
 
+    void EnginePipeline::bind(VkCommandBuffer commandBuffer)
+    {
+        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+    }
+
     void EnginePipeline::createGraphicsPipeline(const std::string &vertFilePath,
                                                 const std::string &fragFilePath,
                                                 const PipelineConfigInfo &configInfo)

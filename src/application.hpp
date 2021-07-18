@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include <stdexcept>
+#include <array>
 
 namespace engine
 {
