@@ -21,6 +21,8 @@ namespace engine
             glfwPollEvents();
             drawFrame();
         }
+
+        vkDeviceWaitIdle(device.device());
     }
 
     void Application::createPipelineLayout()
