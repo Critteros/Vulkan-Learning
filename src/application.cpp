@@ -45,8 +45,8 @@ namespace engine
         pipelineConfig.pipelineLayout = pipelineLayout;
         pipeline = std::make_unique<EnginePipeline>(
             device,
-            "shaders/simple.frag.spv",
             "shaders/simple.vert.spv",
+            "shaders/simple.frag.spv",
             pipelineConfig);
     }
 

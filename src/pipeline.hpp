@@ -11,14 +11,13 @@ namespace engine
 
     struct PipelineConfigInfo
     {
-        VkViewport viewport;
-        VkRect2D scissor;
-        VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
-        VkPipelineRasterizationStateCreateInfo rasterizationInfo;
-        VkPipelineMultisampleStateCreateInfo multisampleInfo;
-        VkPipelineColorBlendAttachmentState colorBlendAttachment;
-        VkPipelineColorBlendStateCreateInfo colorBlendInfo;
-        VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+        VkViewport viewport{};
+        VkRect2D scissor{};
+        VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo{};
+        VkPipelineRasterizationStateCreateInfo rasterizationInfo{};
+        VkPipelineMultisampleStateCreateInfo multisampleInfo{};
+        VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+        VkPipelineDepthStencilStateCreateInfo depthStencilInfo{};
         VkPipelineLayout pipelineLayout = nullptr;
         VkRenderPass renderPass = nullptr;
         uint32_t subpass = 0;
@@ -31,7 +30,7 @@ namespace engine
             EngineDevice &device,
             const std::string &vertFilePath,
             const std::string &fragFilePath,
-            const PipelineConfigInfo configInfo);
+            const PipelineConfigInfo &configInfo);
 
         ~EnginePipeline();
 
@@ -45,7 +44,7 @@ namespace engine
 
         void createGraphicsPipeline(const std::string &vertFilePath,
                                     const std::string &fragFilePath,
-                                    PipelineConfigInfo configInfo);
+                                    const PipelineConfigInfo &configInfo);
 
         void createShaderModule(const std::vector<char> &code, VkShaderModule *shaderModule);
 

@@ -9,7 +9,7 @@ namespace engine
     EnginePipeline::EnginePipeline(EngineDevice &device,
                                    const std::string &vertFilePath,
                                    const std::string &fragFilePath,
-                                   const PipelineConfigInfo configInfo) : device{device}
+                                   const PipelineConfigInfo &configInfo) : device{device}
     {
         createGraphicsPipeline(vertFilePath, fragFilePath, configInfo);
     }
@@ -95,16 +95,6 @@ namespace engine
         configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
         configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;             // Optional
 
-        configInfo.colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-        configInfo.colorBlendInfo.logicOpEnable = VK_FALSE;
-        configInfo.colorBlendInfo.logicOp = VK_LOGIC_OP_COPY; // Optional
-        configInfo.colorBlendInfo.attachmentCount = 1;
-        configInfo.colorBlendInfo.pAttachments = &configInfo.colorBlendAttachment;
-        configInfo.colorBlendInfo.blendConstants[0] = 0.0f; // Optional
-        configInfo.colorBlendInfo.blendConstants[1] = 0.0f; // Optional
-        configInfo.colorBlendInfo.blendConstants[2] = 0.0f; // Optional
-        configInfo.colorBlendInfo.blendConstants[3] = 0.0f; // Optional
-
         configInfo.depthStencilInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
         configInfo.depthStencilInfo.depthTestEnable = VK_TRUE;
         configInfo.depthStencilInfo.depthWriteEnable = VK_TRUE;
@@ -121,7 +111,7 @@ namespace engine
 
     void EnginePipeline::createGraphicsPipeline(const std::string &vertFilePath,
                                                 const std::string &fragFilePath,
-                                                PipelineConfigInfo configInfo)
+                                                const PipelineConfigInfo &configInfo)
     {
         assert(configInfo.pipelineLayout != VK_NULL_HANDLE &&
                "Cannot create graphics pipeline without pipeline layout!");
@@ -166,6 +156,18 @@ namespace engine
         viewportInfo.scissorCount = 1;
         viewportInfo.pScissors = &configInfo.scissor;
 
+        VkPipelineColorBlendStateCreateInfo colorBlendInfo{};
+        colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+        colorBlendInfo.logicOpEnable = VK_FALSE;
+        colorBlendInfo.logicOp = VK_LOGIC_OP_COPY; // Optional
+        colorBlendInfo.attachmentCount = 1;
+        colorBlendInfo.pAttachments = &configInfo.colorBlendAttachment;
+        colorBlendInfo.blendConstants[0] = 0.0f; // Optional
+        colorBlendInfo.blendConstants[1] = 0.0f; // Optional
+        colorBlendInfo.blendConstants[2] = 0.0f; // Optional
+        colorBlendInfo.blendConstants[3] = 0.0f; // Optional
+        colorBlendInfo.pNext = nullptr;
+
         VkGraphicsPipelineCreateInfo pipelineInfo{};
         pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
         pipelineInfo.stageCount = 2;
@@ -175,7 +177,8 @@ namespace engine
         pipelineInfo.pViewportState = &viewportInfo;
         pipelineInfo.pRasterizationState = &configInfo.rasterizationInfo;
         pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
-        pipelineInfo.pColorBlendState = &configInfo.colorBlendInfo;
+
+        pipelineInfo.pColorBlendState = &colorBlendInfo;
         pipelineInfo.pDepthStencilState = &configInfo.depthStencilInfo;
         pipelineInfo.pDynamicState = nullptr;
 
