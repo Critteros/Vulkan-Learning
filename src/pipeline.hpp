@@ -31,7 +31,7 @@ namespace engine
             EngineDevice &device,
             const std::string &vertFilePath,
             const std::string &fragFilePath,
-            const PipelineConfigInfo &configInfo);
+            const PipelineConfigInfo configInfo);
 
         ~EnginePipeline();
 
@@ -45,7 +45,7 @@ namespace engine
 
         void createGraphicsPipeline(const std::string &vertFilePath,
                                     const std::string &fragFilePath,
-                                    const PipelineConfigInfo &configInfo);
+                                    PipelineConfigInfo configInfo);
 
         void createShaderModule(const std::vector<char> &code, VkShaderModule *shaderModule);
 

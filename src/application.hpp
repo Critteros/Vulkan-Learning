@@ -34,7 +34,7 @@ namespace engine
 
         EngineWindow window{WIDTH, HEIGHT, "Vulkan Window"};
         EngineDevice device{window};
-        SwapChain swapChain{device, window.getExtend()};
+        EngineSwapChain swapChain{device, window.getExtend()};
         std::unique_ptr<EnginePipeline> pipeline;
         VkPipelineLayout pipelineLayout;
         std::vector<VkCommandBuffer> commandBuffers;

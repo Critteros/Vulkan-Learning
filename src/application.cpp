@@ -11,7 +11,7 @@ namespace engine
 
     Application::~Application()
     {
-        vkDestroyPipelineLayout(device.getDevice(), pipelineLayout, nullptr);
+        vkDestroyPipelineLayout(device.device(), pipelineLayout, nullptr);
     }
 
     void Application::run()
@@ -32,7 +32,7 @@ namespace engine
         pipelineLayoutInfo.pushConstantRangeCount = 0;
         pipelineLayoutInfo.pPushConstantRanges = nullptr;
 
-        if (vkCreatePipelineLayout(device.getDevice(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
+        if (vkCreatePipelineLayout(device.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
         {
             throw std::runtime_error{"Cannot create pipeline layout!"};
         }

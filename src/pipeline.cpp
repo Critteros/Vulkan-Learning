@@ -9,17 +9,17 @@ namespace engine
     EnginePipeline::EnginePipeline(EngineDevice &device,
                                    const std::string &vertFilePath,
                                    const std::string &fragFilePath,
-                                   const PipelineConfigInfo &configInfo) : device{device}
+                                   const PipelineConfigInfo configInfo) : device{device}
     {
         createGraphicsPipeline(vertFilePath, fragFilePath, configInfo);
     }
 
     EnginePipeline::~EnginePipeline()
     {
-        vkDestroyShaderModule(device.getDevice(), vertShaderModule, nullptr);
-        vkDestroyShaderModule(device.getDevice(), fragShaderModule, nullptr);
+        vkDestroyShaderModule(device.device(), vertShaderModule, nullptr);
+        vkDestroyShaderModule(device.device(), fragShaderModule, nullptr);
 
-        vkDestroyPipeline(device.getDevice(), graphicsPipeline, nullptr);
+        vkDestroyPipeline(device.device(), graphicsPipeline, nullptr);
     }
 
     std::vector<char> EnginePipeline::readFile(const std::string &filePath)
@@ -121,7 +121,7 @@ namespace engine
 
     void EnginePipeline::createGraphicsPipeline(const std::string &vertFilePath,
                                                 const std::string &fragFilePath,
-                                                const PipelineConfigInfo &configInfo)
+                                                PipelineConfigInfo configInfo)
     {
         assert(configInfo.pipelineLayout != VK_NULL_HANDLE &&
                "Cannot create graphics pipeline without pipeline layout!");
@@ -187,7 +187,7 @@ namespace engine
         pipelineInfo.basePipelineIndex = -1;
 
         if (vkCreateGraphicsPipelines(
-                device.getDevice(),
+                device.device(),
                 VK_NULL_HANDLE,
                 1,
                 &pipelineInfo,
@@ -206,7 +206,7 @@ namespace engine
         createInfo.pCode = reinterpret_cast<const uint32_t *>(code.data());
 
         if (vkCreateShaderModule(
-                device.getDevice(),
+                device.device(),
                 &createInfo,
                 nullptr,
                 shaderModule) != VK_SUCCESS)
