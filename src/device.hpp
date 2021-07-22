@@ -8,6 +8,7 @@
 #include <cstring>
 #include <iostream>
 #include <set>
+#include <map>
 #include <unordered_set>
 #include <spdlog/spdlog.h>
 
@@ -90,6 +91,7 @@ namespace engine
     void createCommandPool();
 
     // helper functions
+    int rateDeviceSuitability(VkPhysicalDevice device);
     bool isDeviceSuitable(VkPhysicalDevice device);
     std::vector<const char *> getRequiredExtensions();
     bool checkValidationLayerSupport();
