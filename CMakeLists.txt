@@ -32,7 +32,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 
 # GLFW
 find_package(glfw3 REQUIRED)
+#set_target_properties(glfw PROPERTIES MAP_IMPORTED_CONFIG_DEBUG Debug)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+
 
 # fmt 
 find_package(fmt REQUIRED)
@@ -61,8 +63,8 @@ add_compile_definitions(GLFW_INCLUDE_NONE)
 
 
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY
-  MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" )
+# set_property(TARGET ${PROJECT_NAME} PROPERTY
+#   MSVC_RUNTIME_LIBRARY "MultiThreadedDLL" )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY 
   VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
